@@ -23,6 +23,7 @@ var menuItemsUrl =
 var menuItemsTitleHtml = "snippets/menu-items-title.html";
 var menuItemHtml = "snippets/menu-item.html";
 
+
 // Convenience function for inserting innerHTML for 'select'
 var insertHtml = function (selector, html) {
   var targetElem = document.querySelector(selector);
@@ -83,8 +84,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
 showLoading("#main-content");
 $ajaxUtils.sendGetRequest(
   allCategoriesUrl,
-  buildAndShowHomeHTML, // ***** <---- TODO: STEP 1: Substitute [...] ******
-  true); // Explicitly setting the flag to get JSON from server processed into an object literal
+  buildAndShowHomeHTML); // ***** <---- TODO: STEP 1: Substitute [...] ******
+//  true); // Explicitly setting the flag to get JSON from server processed into an object literal
 });
 // *** finish **
 
@@ -102,7 +103,7 @@ function buildAndShowHomeHTML (categories) {
       // Pay attention to what type of data that function returns vs what the chosenCategoryShortName
       // variable's name implies it expects.
       var chosenCategoryShortName = chooseRandomCategory(categories);
-
+console.log(chosenCategoryShortName);
 
       // TODO: STEP 3: Substitute {{randomCategoryShortName}} in the home html snippet with the
       // chosen category from STEP 2. Use existing insertProperty function for that purpose.
@@ -116,8 +117,9 @@ function buildAndShowHomeHTML (categories) {
       // it into the home html snippet.
       //
       chosen_randomCatShortName = "'" + chosenCategoryShortName.short_name + "'";
+	  
       var homeHtmlToInsertIntoMainPage = insertProperty(homeHtml, "randomCategoryShortName", chosen_randomCatShortName);
-
+console.log(homeHtmlToInsertIntoMainPage);
 
       // TODO: STEP 4: Insert the the produced HTML in STEP 3 into the main page
       // Use the existing insertHtml function for that purpose. Look through this code for an example
@@ -151,7 +153,7 @@ dc.loadMenuCategories = function () {
 
 // Load the menu items view
 // 'categoryShort' is a short_name for a category
-dc.loadMenuItems = function (categoryShort) {
+dc.loadMenuItems = function (categoryShort) {	
   showLoading("#main-content");
   $ajaxUtils.sendGetRequest(
     menuItemsUrl + categoryShort,
